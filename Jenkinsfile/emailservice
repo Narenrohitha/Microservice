@@ -26,20 +26,19 @@ pipeline {
 
         // --- SAST: Bandit ---
         stage("Bandit Security Scan") {
-            steps {
-                dir('src/emailservice') {
-                    sh '''
-                    python3 -m pip install --user --upgrade bandit
-                    bandit -r . -f json -o bandit-report.json || true
-                    '''
-                }
-            }
-            post {
-                always {
-                    archiveArtifacts 'src/emailservice/bandit-report.json'
-                }
-            }
+    steps {
+        dir('src/emailservice') {
+            sh '''
+            bandit -r . -f txt -o bandit-report.txt || true
+            '''
         }
+    }
+    post {
+        always {
+            archiveArtifacts 'src/emailservice/bandit-report.txt'
+        }
+    }
+}
 
         // --- SAST: SonarQube ---
         stage("SonarQube Analysis") {
