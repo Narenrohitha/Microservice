@@ -9,10 +9,7 @@ pipeline {
         SCANNER_HOME = tool 'sonar-scanner'
         DOCKER_NAME  = 'narenganeshan/cartservice'
         IMAGE_NAME   = 'cartservice'
-        // Add SonarQube environment variables
-        SONAR_HOST_URL = 'http://151.185.41.211:9000'
-        // PATH includes dotnet tools directory
-        PATH = "${env.PATH}:${env.HOME}/.dotnet/tools:/var/lib/jenkins/.dotnet/tools"
+        PATH = "${tool 'dotnet9'}/bin:${env.PATH}:${env.HOME}/.dotnet/tools"
     }
 
     stages {
